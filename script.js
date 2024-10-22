@@ -1,9 +1,8 @@
-let cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 let cards = [...cardValues, ...cardValues]; // Duplica las cartas para hacer pares
 let flippedCards = [];
 let matchedCards = [];
 let gameBoard = document.getElementById('game-board');
-let n=0;
 
 // Función para mezclar las cartas
 function shuffle(array) {
@@ -69,14 +68,12 @@ function checkMatch() {
         setTimeout(() => {
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
-            card1.innerHTML = '';
-            card2.innerHTML = '';
+            card1.innerHTML = '?';
+            card2.innerHTML = '?';
             flippedCards = [];
         }, 1000);
     }
-
 }
-
 
 // Reiniciar el juego
 document.getElementById('reset-btn').addEventListener('click', () => {
