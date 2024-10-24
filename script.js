@@ -3,6 +3,13 @@ let cards = [...cardValues, ...cardValues]; // Duplica las cartas para hacer par
 let flippedCards = [];
 let matchedCards = [];
 let gameBoard = document.getElementById('game-board');
+let startTime; // Variable para registrar el tiempo de inicio
+let currentScore = 0;
+let highScore = localStorage.getItem('highScore') || 0; // Obtener puntaje más alto almacenado
+
+// Mostrar puntajes en la página
+document.getElementById('current-score').innerText = `Puntaje actual: ${currentScore}`;
+document.getElementById('high-score').innerText = `Puntaje más alto: ${highScore}`;
 
 // Función para mezclar las cartas
 function shuffle(array) {
@@ -20,6 +27,12 @@ function createBoard() {
         card.addEventListener('click', flipCard);
         gameBoard.appendChild(card);
     });
+
+    flippedCards = [];
+    matchedCards = [];
+    currentScore = 0;
+    startTime = new Date(); // Registrar el tiempo de inicio
+    document.getElementById('current-score').innerText = `Puntaje actual: ${currentScore}`;
 }
 
 // Función para voltear la carta
@@ -43,7 +56,14 @@ function checkMatch() {
         matchedCards.push(card1, card2);
         flippedCards = [];
         if (matchedCards.length === cards.length) {
-            setTimeout(() => alert('¡Has ganado!'), 500);
+            let endTime = new Date(); // Obtener el tiempo de finalización
+            let timeTaken = Math.floor((endTime - startTime) / 1000); // Tiempo en segundos
+            currentScore = calculateScore(timeTaken); // Calcular el puntaje basado en el tiempo
+            document.getElementById('current-score').innerText = `Puntaje actual: ${currentScore}`;
+            setTimeout(() => {
+                alert(`¡Has ganado! Tiempo: ${timeTaken} segundos. Puntaje: ${currentScore}`);
+                saveHighScore(); // Guardar el puntaje más alto si corresponde
+            }, 500);
         }
     } else {
         setTimeout(() => {
@@ -53,6 +73,22 @@ function checkMatch() {
             card2.innerHTML = '?';
             flippedCards = [];
         }, 1000);
+    }
+}
+
+// Función para calcular el puntaje basado en el tiempo
+function calculateScore(timeTaken) {
+    // Cuanto menor sea el tiempo, mayor será el puntaje.
+    // Aquí se puede ajustar la fórmula según prefieras la dificultad
+    return Math.max(100 - timeTaken, 0); // 100 puntos menos 1 punto por segundo
+}
+
+// Guardar puntaje más alto
+function saveHighScore() {
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        localStorage.setItem('highScore', highScore); // Guardar en localStorage
+        document.getElementById('high-score').innerText = `Puntaje más alto: ${highScore}`;
     }
 }
 

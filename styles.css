@@ -13,6 +13,19 @@ h1 {
     color: #333;
 }
 
+#scores {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+#scores p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
 .game-board {
     display: grid;
     grid-template-columns: repeat(4, 100px);
