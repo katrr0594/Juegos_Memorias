@@ -55,7 +55,42 @@ function checkMatch() {
         }, 1000);
     }
 }
+// funcion temporizador
+let startTime;
+let timerInterval;
+document.getElementById ('startButton').addEventListener ('click', function(){
+    startGame();
+});
+document.getElementById ('endButton').addEventListener ('click', function() {
+    ednGame();
+});
+function startGame(){
+    startTime = Date.now(); //Captura el tiempo actual
+    if (stopExecution) return; // Verifica si debe detenerse
+    timerInterval = setInterval(updateTimer, 1000); //Actualiza el cronometro cada segundo
+    document.getElementById('startButton').style.display = 'none';
+    document.getElementById ('endButton').style.display = 'inline';
+}
+function updateTimer(){
+    const elapsedTime = Math.floor ((Date.now() - startTime) / 1000); //Calcula el tiempo transcurrido en segundos
+    document.getElementById('timer').innerText = `tiempo: ${elapsedTime} segundos`;
+}
+function ednGame(){
+    clearInterval(timerInterval); //Detiene el cronometro
+    alert(`juego finalizado. Tiempo total: ${document.getElementById('timer').innerText}`);
+    document.getElementById('endButton').style.display = 'none';
+    document.getElementById('startButton').style.display = 'inline';
+}
+// Pausar el juego
 
+let stopExecution = false;
+document.getElementById('pause-btn').addEventListener('click', () => {
+function pausetemp() {
+    stopExecution = true; 
+}
+
+
+});
 // Reiniciar el juego
 document.getElementById('reset-btn').addEventListener('click', () => {
     flippedCards = [];
