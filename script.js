@@ -22,12 +22,27 @@ function createBoard() {
     });
 }
 
+//Crear objetos de sonidos
+
+var coincidencia = new Audio('coincidencia.mp3');
+var giro = new Audio('giro.mp3');
+
+// Función para reproducir sonido
+function playcoincidencia()
+{
+    coincidencia.play();
+}
+
+
+
 // Función para voltear la carta
 function flipCard() {
     if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
         this.classList.add('flipped');
         this.innerHTML = this.dataset.value;
+        giro.play();
         flippedCards.push(this);
+        
 
         if (flippedCards.length === 2) {
             checkMatch();
@@ -41,6 +56,7 @@ function checkMatch() {
 
     if (card1.dataset.value === card2.dataset.value) {
         matchedCards.push(card1, card2);
+        coincidencia.play();
         flippedCards = [];
         if (matchedCards.length === cards.length) {
             setTimeout(() => alert('¡Has ganado!'), 500);
@@ -54,7 +70,9 @@ function checkMatch() {
             flippedCards = [];
         }, 1000);
     }
+
 }
+
 
 // Reiniciar el juego
 document.getElementById('reset-btn').addEventListener('click', () => {
