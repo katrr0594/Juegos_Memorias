@@ -4,6 +4,7 @@ let flippedCards = [];
 let matchedCards = [];
 let gameBoard = document.getElementById('game-board');
 let n=0;
+let contador = 0;
 
 // Función para mezclar las cartas
 function shuffle(array) {
@@ -46,8 +47,7 @@ function flipCard() {
         this.innerHTML = this.dataset.value;
         giro.play();
         flippedCards.push(this);
-        
-
+contador++;
         if (flippedCards.length === 2) {
             checkMatch();
         }
@@ -113,3 +113,44 @@ function cambiaIconos(){
     cards = [...cards_nuevo, ...cards_nuevo];
     createBoard();
 }
+let movimientos = 0; // Variable global para contar los movimientos
+
+// Función para inicializar el juego
+function iniciarJuego() {
+    // Aquí va la lógica para generar las cartas
+    // Por ejemplo, podrías agregar cartas a tu tablero:
+    // const cartas = ['A', 'A', 'B', 'B', ...]; // Ejemplo de cartas
+    // barajar y crear las cartas en el tablero
+    movimientos = 0; // Reiniciar el contador de movimientos
+    mostrarMovimientos(); // Mostrar el contador inicial
+}
+
+// Función para manejar el movimiento del jugador
+function hacerMovimiento() {
+    // Aquí puedes agregar la lógica para procesar el movimiento (ej. descubrir carta)
+    // ...
+
+    // Incrementa el contador de movimientos
+    movimientos += 1;
+
+    // Actualiza el contador en la interfaz
+    mostrarMovimientos();
+}
+
+// Función para mostrar el número de movimientos
+function mostrarMovimientos() {
+    document.getElementById("movimientos").innerText = "Movimientos realizados: " + movimientos;
+}
+
+// Asignar eventos a las cartas
+// Supongamos que tienes un array de cartas generadas dinámicamente
+const cartas = document.querySelectorAll(".carta");
+cartas.forEach(carta => {
+    carta.addEventListener("click", hacerMovimiento);
+});
+
+// Reiniciar el juego
+document.getElementById("reset-btn").addEventListener("click", iniciarJuego);
+
+// Iniciar el juego cuando cargue la página
+window.onload = iniciarJuego;
