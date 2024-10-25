@@ -1,8 +1,9 @@
-const cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+let cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 let cards = [...cardValues, ...cardValues]; // Duplica las cartas para hacer pares
 let flippedCards = [];
 let matchedCards = [];
 let gameBoard = document.getElementById('game-board');
+let n=0;
 
 // Función para mezclar las cartas
 function shuffle(array) {
@@ -12,11 +13,14 @@ function shuffle(array) {
 // Generar el tablero de juego
 function createBoard() {
     gameBoard.innerHTML = ''; // Limpiar el tablero
+    n=numeros();
     shuffle(cards).forEach((value, index) => {
         let card = document.createElement('div');
         card.classList.add('card');
         card.dataset.value = value;
-        card.innerHTML = '?'; // Mostrar un signo hasta que se dé la vuelta
+        card.style.backgroundImage= "url('img/fondo"+n+".jpg')";
+        card.style.color="#fff"
+        card.innerHTML = ''; // Mostrar un signo hasta que se dé la vuelta
         card.addEventListener('click', flipCard);
         gameBoard.appendChild(card);
     });
@@ -49,8 +53,8 @@ function checkMatch() {
         setTimeout(() => {
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
-            card1.innerHTML = '?';
-            card2.innerHTML = '?';
+            card1.innerHTML = '';
+            card2.innerHTML = '';
             flippedCards = [];
         }, 1000);
     }
@@ -65,3 +69,29 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
 // Inicializar el juego
 createBoard();
+
+function numeros(){
+    return Math.floor(Math.random() * 4) + 1;
+}
+
+function cambiaIconos(){
+    maestro=[
+        {
+            datos: ['1','2','3','4','5','6','7','8']
+        },
+        {
+            datos: ['©','®','۝','Ø','¢','@','Δ','۞']
+        },
+        {
+            datos: ['I','II','III','IV','V','VI','VII','X']
+        },
+        {
+            datos: ['֍','۞','ۨ','♫','♣','☺','♠','▲']
+        }
+
+    ]
+    let n=numeros();
+    let cards_nuevo=maestro[n-1].datos;
+    cards = [...cards_nuevo, ...cards_nuevo];
+    createBoard();
+}
