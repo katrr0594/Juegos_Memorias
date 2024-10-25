@@ -53,13 +53,13 @@ h1 {
 }
 
 .card::before {
-    background: linear-gradient(45deg, #ff6b6b, #556270);
-    content: '?';
+    /* background: linear-gradient(45deg, #ff6b6b, #556270); */
+    /* content: '?'; */
     color: white;
 }
 
 .card::after {
-    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    /* background: linear-gradient(45deg, #00f2fe, #4facfe); */
     transform: rotateY(180deg);
     content: attr(data-value);
     color: white;
